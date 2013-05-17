@@ -34,12 +34,12 @@ test('SEL', function (t) {
   t.equal(ts.getSeconds(), 7);
   t.equal(ts.getMilliseconds(), 710);
   t.equal(msg.callsign, 'RYR1427');
-  t.equal(msg.altitude, null);
-  t.equal(msg.ground_speed, null);
-  t.equal(msg.track, null);
-  t.equal(msg.lat, null);
-  t.equal(msg.lon, null);
-  t.equal(msg.vertical_rate, null);
+  t.equal(msg.altitude, undefined);
+  t.equal(msg.ground_speed, undefined);
+  t.equal(msg.track, undefined);
+  t.equal(msg.lat, undefined);
+  t.equal(msg.lon, undefined);
+  t.equal(msg.vertical_rate, undefined);
   t.equal(msg.squawk, undefined);
   console.error('alert=' + msg.alert);
   t.equal(msg.alert, undefined);
