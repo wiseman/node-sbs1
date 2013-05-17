@@ -157,22 +157,6 @@ function sbs1_value_to_float(v) {
   }
 }
 
-function sbs1_value_to_date(v) {
-  if (v != undefined && v != null) {
-    return new Date(v);
-  } else {
-    return null;
-  }
-}
-
-function sbs1_value_to_time(v) {
-  if (v != undefined && v != null) {
-    return new Date(v);
-  } else {
-    return null;
-  }
-}
-
 function parse_sbs1_message(s) {
   var parts = s.split(',');
   m = new SBS1Message(parts)
