@@ -1,0 +1,38 @@
+{
+  "name" : "sbs1",
+  "version" : "0.0.1",
+  "description" : "Parsing of SBS-1 ADS-B messages.",
+  "main" : "./index.js",
+  "dependencies" : {
+    "wordwrap" : "~0.0.2"
+  },
+  "devDependencies" : {
+    "hashish": "~0.0.4",
+    "tap" : "~0.4.0"
+  },
+  "scripts" : {
+    "test" : "tap ./test/*.js"
+  },
+  "repository" : {
+    "type" : "git",
+    "url" : "http://github.com/wiseman/node-sbs1.git"
+  },
+  "keywords" : [
+    "argument",
+    "args",
+    "option",
+    "parser",
+    "parsing",
+    "cli",
+    "command"
+  ],
+  "author" : {
+    "name" : "John Wiseman",
+    "email" : "jjwiseman@gmail/com",
+    "url" : "http://lemondronor.com"
+  },
+  "license" : "MIT/X11",
+  "engine" : {
+    "node" : ">=0.4"
+  }
+}
