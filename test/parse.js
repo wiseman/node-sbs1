@@ -41,10 +41,11 @@ test('SEL', function (t) {
   t.equal(msg.lon, null);
   t.equal(msg.vertical_rate, null);
   t.equal(msg.squawk, undefined);
-  t.equal(msg.alert, false);
-  t.equal(msg.emergency, false);
-  t.equal(msg.spi, false);
-  t.equal(msg.is_on_ground, false);
+  console.error('alert=' + msg.alert);
+  t.equal(msg.alert, undefined);
+  t.equal(msg.emergency, undefined);
+  t.equal(msg.spi, undefined);
+  t.equal(msg.is_on_ground, undefined);
   t.end();
 });
 
@@ -85,15 +86,15 @@ test('MSG 1', function(t) {
 
   s = 'MSG,1,,,AD18DA,,,,,,258     ,,,,,,,,,,,';
   msg = sbs1.parse_sbs1_message(s);
-  t.equal(msg.alert, false);
-  t.equal(msg.emergency, false);
-  t.equal(msg.spi, false);
-  t.equal(msg.is_on_ground, false);
+  t.equal(msg.alert, null);
+  t.equal(msg.emergency, null);
+  t.equal(msg.spi, null);
+  t.equal(msg.is_on_ground, null);
 
-  s = 'MSG,1,,,AD18DA,,,,,,258     ,,,,,,,,1,,1,1';
+  s = 'MSG,1,,,AD18DA,,,,,,258     ,,,,,,,,1,,1,-1';
   msg = sbs1.parse_sbs1_message(s);
   t.equal(msg.alert, true);
-  t.equal(msg.emergency, false);
+  t.equal(msg.emergency, null);
   t.equal(msg.spi, true);
   t.equal(msg.is_on_ground, true);
   t.end();

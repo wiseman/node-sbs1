@@ -132,7 +132,13 @@ SBS1Message.prototype.logged_timestamp = function() {
 
 
 function sbs1_value_to_bool(v) {
-  return !(v === undefined || v === null || v === '' || v === '0');
+  if (v === undefined || v === null) {
+    return v;
+  } else if (v === '') {
+    return null;
+  } else {
+    return !(v === '0');
+  }
 }
 
 function sbs1_value_to_int(v) {
