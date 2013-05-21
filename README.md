@@ -74,6 +74,8 @@ Parsed messages have the following fields:
 [1]: http://en.wikipedia.org/wiki/Aviation_transponder_interrogation_modes#Mode_A_and_Mode_C
 
 Not all message/transmission types will have values for all fields.
+Missing values will be represented by `null` or `undefined` (an empty
+comma-delimited value is `null`).
 
 Parsed messages have `generated_timestamp()` and `logged_timestamp()`
 methods that parse the corresponding date and time fields and return
