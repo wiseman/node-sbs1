@@ -1,13 +1,11 @@
 {
   "name" : "sbs1",
-  "version" : "0.0.1",
-  "description" : "Parsing of SBS-1 ADS-B messages.",
+  "version" : "0.0.2",
+  "description" : "Parsing of SBS-1 Mode S ADS-B messages.",
   "main" : "./index.js",
   "dependencies" : {
-    "wordwrap" : "~0.0.2"
   },
   "devDependencies" : {
-    "hashish": "~0.0.4",
     "tap" : "~0.4.0"
   },
   "scripts" : {
@@ -18,13 +16,14 @@
     "url" : "http://github.com/wiseman/node-sbs1.git"
   },
   "keywords" : [
-    "argument",
-    "args",
-    "option",
-    "parser",
-    "parsing",
-    "cli",
-    "command"
+    "ads-b",
+    "aircraft",
+    "aviation",
+    "avionics",
+    "kinetic avionics"
+    "mode s",
+    "sbs-1",
+    "virtual radar",
   ],
   "author" : {
     "name" : "John Wiseman",
