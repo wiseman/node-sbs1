@@ -73,25 +73,48 @@ Parsed messages have the following fields:
 
 [1]: http://en.wikipedia.org/wiki/Aviation_transponder_interrogation_modes#Mode_A_and_Mode_C
 
-Parsed messages have `generated_timestamp` and `logged_timestamp`
+Not all message/transmission types will have values for all fields.
+
+Parsed messages have `generated_timestamp()` and `logged_timestamp()`
 methods that parse the corresponding date and time fields and return
 `Date` objects.
 
+
 ## <a name="MessageType">MessageType</a>
 
-There are 6 types of SBS-1 messages, with an enum for each:
+There are 6 types of SBS-1 messages represented by the `MessageType` enum:
 
-|Enum                          |Value   |
-|------------------------------|--------|
-|`MessageType.SELECTION_CHANGE`|`"SEL"` |
-|`MessageType.NEW_ID`          |`"ID"`  |
-|`MessageType.NEW_AIRCRAFT`    |`"AIR"` |
-|`MessageType.STATUS_AIRCRAFT` |`"STA"` |
-|`MessageType.CLICK`           |`"CLK"` |
-|`MessageType.TRANSMISSION`    |`"MSG"` |
+|Enum              |Value   |
+|------------------|--------|
+|`SELECTION_CHANGE`|`"SEL"` |
+|`NEW_ID`          |`"ID"`  |
+|`NEW_AIRCRAFT`    |`"AIR"` |
+|`STATUS_AIRCRAFT` |`"STA"` |
+|`CLICK`           |`"CLK"` |
+|`TRANSMISSION`    |`"MSG"` |
 
 `SELECTION_CHANGE`, `NEW_ID`, `NEW_AIRCRAFT`, `STATUS_CHANGE`, and
 `CLK` are indicate changes in the state of the SBS-1 software and
 aren't typically used by other systems.
 
-`TRANSMISSION` 
+`TRANSMISSION` messages contain information sent by aircraft.
+
+
+## <a name="TransmissionType">TransmissionType</a>
+
+There are 8 subtypes of transmission messages, specified by the
+`TransmissionType` enum:
+
+|Enum                   |Value|Description                    |Spec        |
+|-----------------------|-----|-------------------------------|------------|
+|`ES_IDENT_AND_CATEGORY`|`1`  |ES identification and category |DF17 BDS 0,8|
+|`ES_SURFACE_POS`       |`2`  |ES surface position message    |DF17 BDS 0,6|
+|`ES_AIRBORNE_POS`      |`3`  |ES airborne position message   |DF17 BDS 0,5|
+|`ES_AIRBORNE_VEL`      |`4`  |ES airborne velocity message   |DF17 BDS 0,9|
+|`SURVEILLANCE_ALT`     |`5`  |Surveillance alt message       |DF4, DF20   |
+|`SURVEILLANCE_ID`      |`6`  |Surveillance ID message        |DF5, DF21   |
+|`AIR_TO_AIR`           |`7`  |Air-to-air message             |DF16        |
+|`ALL_CALL_REPLY`       |`8`  |All call reply                 |DF11        |
+
+Only `ES_SURFACE_POS` and `ES_AIRBORNE_POS` transmissions will have
+position (latitude and longitude) information.
