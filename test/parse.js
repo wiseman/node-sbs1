@@ -9,10 +9,10 @@ test('SEL', function (t) {
   var msg = sbs1.parse_sbs1_message(s);
   t.equal(msg.message_type, sbs1.MessageType.SELECTION_CHANGE);
   t.equal(msg.transmission_type, null);
-  t.equal(msg.session_id, 496);
-  t.equal(msg.aircraft_id, 2286);
+  t.equal(msg.session_id, '496');
+  t.equal(msg.aircraft_id, '2286');
   t.equal(msg.hex_ident, '4CA4E5');
-  t.equal(msg.flight_id, 27215);
+  t.equal(msg.flight_id, '27215');
   t.equal(msg.generated_date, '2010/02/19');
   t.equal(msg.generated_time, '18:06:07.710');
   var ts = msg.generated_timestamp();
