@@ -1,8 +1,10 @@
 node-sbs1
 =========
 
-This is a node.js module that parses SBS-1 Mode-S ADS-B BaseStation
-receiver "port 30003" messages.
+This is a node.js module that parses ASCII messages containing Mode-S
+[ADS-B](http://en.wikipedia.org/wiki/Automatic_dependent_surveillance-broadcast)
+aircraft data that is in "SBS-1 BaseStation port 30003" format.  This
+format has become a semi-standard way of sending ADS-B data.
 
 [![build status](https://secure.travis-ci.org/wiseman/node-sbs1.png)](http://travis-ci.org/wiseman/node-sbs1)
 
@@ -39,3 +41,57 @@ if (msg.message_type === sbs1.MessageType.TRANSMISSION &&
   console.log('coords: ' + msg.lat + ', ' + msg.lon);
 }
 ```
+
+## Parsed messages
+
+Parsed messages have the following fields:
+
+|Field            |Description                                                          |
+|-----------------|---------------------------------------------------------------------|
+|message_type     |See [MessageType](#MessageType).                                     |
+|transmission_type|See [TransmissionType](#TransmissionType).                           |
+|session_id       |`String`. Database session record number.                            |
+|aircraft_id      |`String`. Database aircraft record number.                           |
+|hex_ident        |`String`. 24-bit ICACO ID, in hex.                                   |
+|flight_id        |`String`. Database flight record number.                             |
+|generated_date   |`String`. Date the message was generated.                            |
+|generated_time   |`String`. Time the message was generated.                            |
+|logged_date      |`String`. Date the message was logged.                               |
+|logged_time      |`String`. Time the message was logged.                               |
+|callsign         |`String`. Eight character flight ID or callsign.                     |
+|altitude         |`Integer`. [Mode C] [1] Altitude relative to 1013 mb (29.92" Hg).    |
+|ground_speed     |`Integer`. Speed over ground.                                        |
+|track            |`Integer`. Ground track angle.                                       |
+|lat              |`Float`. Latitude.                                                   |
+|lon              |`Float`. Longitude                                                   |
+|vertical_rate    |`Integer`. Climb rate.                                               |
+|squawk           |`String`. Assigned [Mode A] [1] squawk code.                         |
+|alert            |`Boolean`. Flag to indicate that squawk has changed.                 |
+|emergency        |`Boolean`. Flag to indicate emergency code has been set.             |
+|spi              |`Boolean`. Flag to indicate Special Position Indicator has been set. |
+|is_on_ground     |`Boolean`. Flag to indicate ground squat switch is active.           |
+
+[1]: http://en.wikipedia.org/wiki/Aviation_transponder_interrogation_modes#Mode_A_and_Mode_C
+
+Parsed messages have `generated_timestamp` and `logged_timestamp`
+methods that parse the corresponding date and time fields and return
+`Date` objects.
+
+## <a name="MessageType">MessageType</a>
+
+There are 6 types of SBS-1 messages, with an enum for each:
+
+|Enum                          |Value   |
+|------------------------------|--------|
+|`MessageType.SELECTION_CHANGE`|`"SEL"` |
+|`MessageType.NEW_ID`          |`"ID"`  |
+|`MessageType.NEW_AIRCRAFT`    |`"AIR"` |
+|`MessageType.STATUS_AIRCRAFT` |`"STA"` |
+|`MessageType.CLICK`           |`"CLK"` |
+|`MessageType.TRANSMISSION`    |`"MSG"` |
+
+`SELECTION_CHANGE`, `NEW_ID`, `NEW_AIRCRAFT`, `STATUS_CHANGE`, and
+`CLK` are indicate changes in the state of the SBS-1 software and
+aren't typically used by other systems.
+
+`TRANSMISSION` 
