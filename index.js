@@ -3,10 +3,11 @@
 // John Wiseman <jjwiseman@gmail.com> @lemonodor
 // Copyright 2013
 
+var events = require('events');
+var net = require('net');
+var readline = require('readline');
 var sbs1 = exports;
-
-exports.Client = require('./lib/client');
-
+var util = require('util');
 
 exports.MessageType = {
   // Generated when the user changes the selected aircraft in
@@ -85,9 +86,6 @@ exports.parseSbs1Message = function(s) {
   return m;
 }
 
-
-
-// ## SBS1Message
 
 exports.SBS1Message = function(parts) {
   // Replace empty strings (,,) with nulls.
@@ -174,6 +172,32 @@ function sbs1_value_to_float(v) {
 
 exports.createClient = function(options) {
   var client = new sbs1.Client(options);
-  client.resume();
   return client;
 }
+
+
+exports.Client = function(options) {
+  events.EventEmitter.call(this);
+  options = options || {};
+  var host = options.host || 'localhost'
+  var port = options.port || 30003
+  this.socket = net.connect(
+    {
+      host: host,
+      port: port
+    },
+    function() {
+      console.log('Connected to SBS1 messages at ' +
+                  host + ':' + port);
+    });
+  this.socket_rl = readline.createInterface({
+    input: this.socket,
+    output: '/dev/null'});
+  this.socket_rl.on('line', this.parseMessage_.bind(this));
+}
+util.inherits(exports.Client, events.EventEmitter);
+
+exports.Client.prototype.parseMessage_ = function(line) {
+  var msg = sbs1.parseSbs1Message(line);
+  this.emit('message', msg);
+};
