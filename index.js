@@ -3,8 +3,12 @@
 // John Wiseman <jjwiseman@gmail.com> @lemonodor
 // Copyright 2013
 
+var sbs1 = exports;
 
-var MessageType = {
+exports.Client = require('./lib/client');
+
+
+exports.MessageType = {
   // Generated when the user changes the selected aircraft in
   // BaseStation.
   SELECTION_CHANGE: 'SEL',
@@ -43,7 +47,7 @@ var MessageType = {
 // | 7  | Air-to-air message             | DF16         |
 // | 8  | All call reply                 | DF11         |
 
-var TransmissionType = {
+exports.TransmissionType = {
   ES_IDENT_AND_CATEGORY: 1,
   // Triggered by the nose gear squat switch.
   ES_SURFACE_POS: 2,
@@ -75,9 +79,9 @@ var TransmissionType = {
 // field #23 in a message that only contains 12 fields--are turned
 // into `undefined`.
 
-function parse_sbs1_message(s) {
+exports.parseSbs1Message = function(s) {
   var parts = s.split(',');
-  m = new SBS1Message(parts)
+  m = new sbs1.SBS1Message(parts)
   return m;
 }
 
@@ -85,7 +89,7 @@ function parse_sbs1_message(s) {
 
 // ## SBS1Message
 
-SBS1Message = function(parts) {
+exports.SBS1Message = function(parts) {
   // Replace empty strings (,,) with nulls.
   parts = parts.map(function (e) {
     if (e === '') {
@@ -97,7 +101,7 @@ SBS1Message = function(parts) {
   this.message_type = parts[0];
   this.transmission_type = sbs1_value_to_int(parts[1]);
   // Validate transmission (MSG) messages.
-  if (this.message_type == MessageType.TRANSMISSION_TYPE &&
+  if (this.message_type == sbs1.MessageType.TRANSMISSION_TYPE &&
       this.transmission_type < 1 || this.transmission_type > 8) {
     throw new Error('Unknown message type: ' + parts[1]);
   }
@@ -126,14 +130,14 @@ SBS1Message = function(parts) {
 
 // Parse the `generated_date` and `generated_time` fields into a
 // `Date`.
-SBS1Message.prototype.generated_timestamp = function() {
+exports.SBS1Message.prototype.generated_timestamp = function() {
   return new Date(this.generated_date + ' ' + this.generated_time);
 };
 
 
 // Parse the `logged_date` and `logged_time` fields into a
 // `Date`.
-SBS1Message.prototype.logged_timestamp = function() {
+exports.SBS1Message.prototype.logged_timestamp = function() {
   return new Date(this.logged_date + ' ' + this.logged_time);
 };
 
@@ -168,6 +172,8 @@ function sbs1_value_to_float(v) {
 }
 
 
-exports.parse_sbs1_message = parse_sbs1_message;
-exports.MessageType = MessageType;
-exports.TransmissionType = TransmissionType;
+exports.createClient = function(options) {
+  var client = new sbs1.Client(options);
+  client.resume();
+  return client;
+}

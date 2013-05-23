@@ -11,6 +11,9 @@
   "scripts" : {
     "test" : "tap ./test/*.js"
   },
+  "bin": {
+    "sbs1": "bin/sbs1.js"
+  },
   "repository" : {
     "type" : "git",
     "url" : "http://github.com/wiseman/node-sbs1.git"

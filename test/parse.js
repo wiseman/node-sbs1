@@ -6,7 +6,7 @@ var test = require('tap').test;
 test('SEL', function (t) {
   var s = ('SEL,,496,2286,4CA4E5,27215,2010/02/19,18:06:07.710,2010/02/19,' +
            '18:06:07.710,RYR1427');
-  var msg = sbs1.parse_sbs1_message(s);
+  var msg = sbs1.parseSbs1Message(s);
   t.equal(msg.message_type, sbs1.MessageType.SELECTION_CHANGE);
   t.equal(msg.transmission_type, null);
   t.equal(msg.session_id, '496');
@@ -52,7 +52,7 @@ test('SEL', function (t) {
 test('STA', function (t) {
   var s = ('STA,,5,179,400AE7,10103,2008/11/28,14:58:51.153,2008/11/28,' +
            '14:58:51.153,RM');
-  var msg = sbs1.parse_sbs1_message(s);
+  var msg = sbs1.parseSbs1Message(s);
   t.equal(msg.message_type, sbs1.MessageType.STATUS_CHANGE);
   t.equal(msg.transmission_type, null);
   t.equal(msg.callsign, 'RM');
@@ -61,7 +61,7 @@ test('STA', function (t) {
 
 test('MSG 1', function(t) {
   var s = 'MSG,1,,,AD18DA,,,,,,258     ,,,,,,,,0,0,0,0';
-  var msg = sbs1.parse_sbs1_message(s);
+  var msg = sbs1.parseSbs1Message(s);
   t.equal(msg.transmission_type, sbs1.TransmissionType.ES_IDENT_AND_CATEGORY);
   t.equal(msg.session_id, null);
   t.equal(msg.aircraft_id, null);
@@ -85,14 +85,14 @@ test('MSG 1', function(t) {
   t.equal(msg.is_on_ground, false);
 
   s = 'MSG,1,,,AD18DA,,,,,,258     ,,,,,,,,,,,';
-  msg = sbs1.parse_sbs1_message(s);
+  msg = sbs1.parseSbs1Message(s);
   t.equal(msg.alert, null);
   t.equal(msg.emergency, null);
   t.equal(msg.spi, null);
   t.equal(msg.is_on_ground, null);
 
   s = 'MSG,1,,,AD18DA,,,,,,258     ,,,,,,,,1,,1,-1';
-  msg = sbs1.parse_sbs1_message(s);
+  msg = sbs1.parseSbs1Message(s);
   t.equal(msg.alert, true);
   t.equal(msg.emergency, null);
   t.equal(msg.spi, true);
@@ -103,7 +103,7 @@ test('MSG 1', function(t) {
 
 test('MSG 3', function(t) {
   var s = 'MSG,3,,,76CCE2,,,,,,,5950,,,,,,,0,0,0,0';
-  var msg = sbs1.parse_sbs1_message(s);
+  var msg = sbs1.parseSbs1Message(s);
   t.equal(msg.transmission_type, sbs1.TransmissionType.ES_AIRBORNE_POS);
   t.equal(msg.session_id, null);
   t.equal(msg.aircraft_id, null);
@@ -127,7 +127,7 @@ test('MSG 3', function(t) {
   t.equal(msg.is_on_ground, false);
 
   s = 'MSG,3,,,76CCE2,,,,,,,5925,,,34.01839,-118.35263,,,0,0,0,0';
-  var msg = sbs1.parse_sbs1_message(s);
+  var msg = sbs1.parseSbs1Message(s);
   t.equal(msg.transmission_type, sbs1.TransmissionType.ES_AIRBORNE_POS);
   t.equal(msg.session_id, null);
   t.equal(msg.aircraft_id, null);
@@ -155,7 +155,7 @@ test('MSG 3', function(t) {
 
 test('MSG 4', function(t) {
   var s = 'MSG,4,,,76CCE2,,,,,,,,215,83,,,-1600,,0,0,0,0';
-  var msg = sbs1.parse_sbs1_message(s);
+  var msg = sbs1.parseSbs1Message(s);
   t.equal(msg.transmission_type, sbs1.TransmissionType.ES_AIRBORNE_VEL);
   t.equal(msg.session_id, null);
   t.equal(msg.aircraft_id, null);
