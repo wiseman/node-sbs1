@@ -30,16 +30,31 @@ MSG,8,496,194,405F4E,27884,2010/02/19,17:58:13.244,2010/02/19,17:58:13.368,,,,,,
 There's some documentation of the message format at
 http://www.homepages.mcb.net/bones/SBS/Article/Barebones42_Socket_Data.htm
 
-Here's an example of using the module:
+Here are some examples of using the module:
 
 ```
+// Parse a string containing an SBS1 message.
 var sbs1 = require('sbs1');
 var s = 'MSG,3,496,211,4CA2D6,10057,2008/11/28,14:53:50.594,2008/11/28,14:58:51.153,,37000,,,51.45735,-1.02826,,,0,0,0,0';
-var msg = sbs1.parse_sbs1_message(s);
+var msg = sbs1.parseSbs1Message(s);
 if (msg.message_type === sbs1.MessageType.TRANSMISSION &&
     msg.transmission_type === sbs1.TransmissionType.ES_AIRBORNE_POS) {
   console.log('coords: ' + msg.lat + ', ' + msg.lon);
 }
+```
+
+```
+// Connect to a server at localhost:30003 that is sending messages in SBS1
+// format.  You can pass an options object containing host and port to
+// createClient to connect to a different server/port.
+var sbs1 = require('sbs1');
+var client = sbs1.createClient();
+client.on('message', function(msg) {
+  if (msg.message_type === sbs1.MessageType.TRANSMISSION &&
+      msg.transmission_type === sbs1.TransmissionType.ES_AIRBORNE_POS) {
+    console.log('coords: ' + msg.lat + ', ' + msg.lon);
+  }
+});
 ```
 
 ## Parsed messages
