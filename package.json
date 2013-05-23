@@ -1,24 +1,23 @@
 {
-  "name" : "sbs1",
-  "version" : "0.0.2",
-  "description" : "Parsing of SBS-1 Mode S ADS-B messages.",
-  "main" : "./index.js",
-  "dependencies" : {
+  "name": "sbs1",
+  "version": "0.1.0",
+  "description": "Parsing of SBS-1 Mode S ADS-B messages.",
+  "main": "./index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "tap": "~0.4.0"
   },
-  "devDependencies" : {
-    "tap" : "~0.4.0"
-  },
-  "scripts" : {
-    "test" : "tap ./test/*.js"
+  "scripts": {
+    "test": "tap ./test/*.js"
   },
   "bin": {
     "sbs1": "bin/sbs1.js"
   },
-  "repository" : {
-    "type" : "git",
-    "url" : "http://github.com/wiseman/node-sbs1.git"
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/wiseman/node-sbs1.git"
   },
-  "keywords" : [
+  "keywords": [
     "ads-b",
     "aircraft",
     "aviation",
@@ -28,13 +27,13 @@
     "sbs-1",
     "virtual radar"
   ],
-  "author" : {
-    "name" : "John Wiseman",
-    "email" : "jjwiseman@gmail/com",
-    "url" : "http://lemondronor.com"
+  "author": {
+    "name": "John Wiseman",
+    "email": "jjwiseman@gmail/com",
+    "url": "http://lemondronor.com"
   },
-  "license" : "MIT/X11",
-  "engine" : {
-    "node" : ">=0.4"
+  "license": "MIT/X11",
+  "engine": {
+    "node": ">=0.4"
   }
 }
