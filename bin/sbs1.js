@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 // Sample program that prints aircraft coordinates.
 
 var usage = require('optimist')

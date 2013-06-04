@@ -86,7 +86,6 @@ exports.parseSbs1Message = function(s) {
   return m;
 }
 
-
 exports.SBS1Message = function(parts) {
   // Replace empty strings (,,) with nulls.
   parts = parts.map(function (e) {
@@ -169,6 +168,60 @@ function sbs1_value_to_float(v) {
   }
 }
 
+// # Emitting Sbs1 strings
+
+exports.stringify = function(m) {
+  return m.stringify();
+}
+
+exports.SBS1Message.prototype.stringify = function() {
+  parts = [
+    this.message_type,
+    this.transmission_type, // int_to_sbs1_value
+    this.session_id,
+    this.aircraft_id,
+    this.hex_ident,
+    this.flight_id,
+    this.generated_date,
+    this.generated_time,
+    this.logged_date,
+    this.logged_time,
+    this.callsign,
+    this.altitude, // int_to_sbs1_value
+    this.ground_speed, // int_to_sbs1_value
+    this.track, // int_to_sbs1_value
+    this.lat, // float_to_sbs1_value
+    this.lon, // float_to_sbs1_value
+    this.vertical_rate, // int_to_sbs1_value
+    this.squawk,
+    bool_to_sbs1_value(this.alert),
+    bool_to_sbs1_value(this.emergency),
+    bool_to_sbs1_value(this.spi),
+    bool_to_sbs1_value(this.is_on_ground),
+  ];
+  // Replace nulls with empty strings
+  parts = parts.map(function (e) {
+    if (e === null) {
+      return '';
+    } else {
+      return e;
+    }
+  });
+  return parts.join(',');
+  // I've commented out the part to remove empty fields at the end of the list
+  // due to asserts in the tests differentiating between null and undefined
+  // .replace(/(,0?)*$/,'');
+};
+
+function bool_to_sbs1_value(v) {
+  if (v === undefined || v === null) {
+    return v;
+  } else {
+    return v?'1':'0';
+  }
+}
+
+// # TCP client
 
 exports.createClient = function(options) {
   var client = new sbs1.Client(options);
