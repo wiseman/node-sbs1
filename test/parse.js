@@ -179,3 +179,54 @@ test('MSG 4', function(t) {
   t.equal(msg.is_on_ground, false);
   t.end();
 });
+
+
+test('stringify SEL', function (t) {
+  var s = ('SEL,,496,2286,4CA4E5,27215,2010/02/19,18:06:07.710,2010/02/19,' +
+           '18:06:07.710,RYR1427');
+  var msg = sbs1.parseSbs1Message(s);
+  var string = sbs1.stringify(msg);
+  msg = sbs1.parseSbs1Message(string);
+
+  t.equal(string, s);
+  t.equal(msg.message_type, sbs1.MessageType.SELECTION_CHANGE);
+  t.equal(msg.transmission_type, null);
+  t.equal(msg.session_id, '496');
+  t.equal(msg.aircraft_id, '2286');
+  t.equal(msg.hex_ident, '4CA4E5');
+  t.equal(msg.flight_id, '27215');
+  t.equal(msg.generated_date, '2010/02/19');
+  t.equal(msg.generated_time, '18:06:07.710');
+  var ts = msg.generated_timestamp();
+  t.equal(ts.getFullYear(), 2010);
+  t.equal(ts.getMonth(), 1);
+  t.equal(ts.getDate(), 19);
+  t.equal(ts.getHours(), 18);
+  t.equal(ts.getMinutes(), 6);
+  t.equal(ts.getSeconds(), 7);
+  t.equal(ts.getMilliseconds(), 710);
+  t.equal(msg.logged_date, '2010/02/19');
+  t.equal(msg.logged_time, '18:06:07.710');
+  ts = msg.logged_timestamp();
+  t.equal(ts.getFullYear(), 2010);
+  t.equal(ts.getMonth(), 1);
+  t.equal(ts.getDate(), 19);
+  t.equal(ts.getHours(), 18);
+  t.equal(ts.getMinutes(), 6);
+  t.equal(ts.getSeconds(), 7);
+  t.equal(ts.getMilliseconds(), 710);
+  t.equal(msg.callsign, 'RYR1427');
+  t.equal(msg.altitude, undefined);
+  t.equal(msg.ground_speed, undefined);
+  t.equal(msg.track, undefined);
+  t.equal(msg.lat, undefined);
+  t.equal(msg.lon, undefined);
+  t.equal(msg.vertical_rate, undefined);
+  t.equal(msg.squawk, undefined);
+  console.error('alert=' + msg.alert);
+  t.equal(msg.alert, undefined);
+  t.equal(msg.emergency, undefined);
+  t.equal(msg.spi, undefined);
+  t.equal(msg.is_on_ground, undefined);
+  t.end();
+});

@@ -86,7 +86,6 @@ exports.parseSbs1Message = function(s) {
   return m;
 }
 
-
 exports.SBS1Message = function(parts) {
   // Replace empty strings (,,) with nulls.
   parts = parts.map(function (e) {
@@ -169,6 +168,17 @@ function sbs1_value_to_float(v) {
   }
 }
 
+// # Emitting Sbs1 strings
+
+exports.stringify = function(m) {
+  return m.stringify();
+}
+
+exports.SBS1Message.prototype.stringify = function() {
+  return ""; // TODO: implement this
+};
+
+// # TCP client
 
 exports.createClient = function(options) {
   var client = new sbs1.Client(options);
