@@ -190,6 +190,7 @@ exports.Client = function(options) {
       console.log('Connected to SBS1 messages at ' +
                   host + ':' + port);
     });
+  this.socket.on('error', this.emitError.bind(this));
   this.socket_rl = readline.createInterface({
     input: this.socket,
     output: '/dev/null'});
@@ -200,4 +201,8 @@ util.inherits(exports.Client, events.EventEmitter);
 exports.Client.prototype.parseMessage_ = function(line) {
   var msg = sbs1.parseSbs1Message(line);
   this.emit('message', msg);
+};
+
+exports.Client.prototype.emitError = function(err) {
+  this.emit('error', err);
 };

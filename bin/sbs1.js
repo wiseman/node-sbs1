@@ -41,6 +41,11 @@ if (argv._.length > 0) {
       print_msg(msg);
     }
   });
+  client.on('error', function(err) {
+    console.error('Error communicating with SBS1 server at ' +
+                  host + ':' + port + ': ' + err);
+    process.exit(1);
+    });
 } else {
   // Read from stdin.
   var rl = readline.createInterface({
