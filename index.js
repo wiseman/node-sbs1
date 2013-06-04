@@ -194,9 +194,10 @@ exports.SBS1Message.prototype.stringify = function() {
     this.lon, // float_to_sbs1_value
     this.vertical_rate, // int_to_sbs1_value
     this.squawk,
-    this.alert, // bool_to_sbs1_value
-    this.emergency, // bool_to_sbs1_value
-    this.spi, // bool_to_sbs1_value
+    bool_to_sbs1_value(this.alert),
+    bool_to_sbs1_value(this.emergency),
+    bool_to_sbs1_value(this.spi),
+    bool_to_sbs1_value(this.is_on_ground),
   ];
   // Replace nulls with empty strings
   parts = parts.map(function (e) {
@@ -206,8 +207,19 @@ exports.SBS1Message.prototype.stringify = function() {
       return e;
     }
   });
-  return parts.join(',').replace(/,*$/,'');
+  return parts.join(',');
+  // I've commented out the part to remove empty fields at the end of the list
+  // due to asserts in the tests differentiating between null and undefined
+  // .replace(/(,0?)*$/,'');
 };
+
+function bool_to_sbs1_value(v) {
+  if (v === undefined || v === null) {
+    return v;
+  } else {
+    return v?'1':'0';
+  }
+}
 
 // # TCP client
 
