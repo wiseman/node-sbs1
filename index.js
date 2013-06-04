@@ -175,7 +175,38 @@ exports.stringify = function(m) {
 }
 
 exports.SBS1Message.prototype.stringify = function() {
-  return ""; // TODO: implement this
+  parts = [
+    this.message_type,
+    this.transmission_type, // int_to_sbs1_value
+    this.session_id,
+    this.aircraft_id,
+    this.hex_ident,
+    this.flight_id,
+    this.generated_date,
+    this.generated_time,
+    this.logged_date,
+    this.logged_time,
+    this.callsign,
+    this.altitude, // int_to_sbs1_value
+    this.ground_speed, // int_to_sbs1_value
+    this.track, // int_to_sbs1_value
+    this.lat, // float_to_sbs1_value
+    this.lon, // float_to_sbs1_value
+    this.vertical_rate, // int_to_sbs1_value
+    this.squawk,
+    this.alert, // bool_to_sbs1_value
+    this.emergency, // bool_to_sbs1_value
+    this.spi, // bool_to_sbs1_value
+  ];
+  // Replace nulls with empty strings
+  parts = parts.map(function (e) {
+    if (e === null) {
+      return '';
+    } else {
+      return e;
+    }
+  });
+  return parts.join(',').replace(/,*$/,'');
 };
 
 // # TCP client
