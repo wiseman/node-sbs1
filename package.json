@@ -10,7 +10,7 @@
     "tap": "~0.4.0"
   },
   "scripts": {
-    "test": "tap ./test/*.js"
+    "test": "tap --stderr ./test/*.js"
   },
   "bin": {
     "sbs1": "bin/sbs1.js"
