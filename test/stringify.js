@@ -1,4 +1,3 @@
-var assert = require('assert');
 var sbs1 = require('../index');
 var test = require('tap').test;
 
