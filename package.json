@@ -2,7 +2,7 @@
   "name": "sbs1",
   "description": "Parsing of SBS-1 Mode S ADS-B messages.",
   "author": "John Wiseman <jjwiseman@gmail.com> (http://lemondronor.com)",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "main": "./index.js",
   "dependencies": {
     "optimist": "~0.6.0"
