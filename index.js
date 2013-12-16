@@ -82,9 +82,9 @@ exports.TransmissionType = {
 
 exports.parseSbs1Message = function(s) {
   var parts = s.split(',');
-  m = new sbs1.SBS1Message(parts)
+  var m = new sbs1.SBS1Message(parts);
   return m;
-}
+};
 
 exports.SBS1Message = function(parts) {
   // Replace empty strings (,,) with nulls.
@@ -122,7 +122,7 @@ exports.SBS1Message = function(parts) {
   this.emergency = sbs1_value_to_bool(parts[19]);
   this.spi = sbs1_value_to_bool(parts[20]);
   this.is_on_ground = sbs1_value_to_bool(parts[21]);
-}
+};
 
 
 // Parse the `generated_date` and `generated_time` fields into a
@@ -144,7 +144,7 @@ function sbs1_value_to_bool(v) {
   if (v === undefined || v === null) {
     return v;
   } else {
-    return !(v === '0');
+    return v !== '0';
   }
 }
 
@@ -172,10 +172,10 @@ function sbs1_value_to_float(v) {
 
 exports.stringify = function(m) {
   return m.stringify();
-}
+};
 
 exports.SBS1Message.prototype.stringify = function() {
-  parts = [
+  var parts = [
     this.message_type,
     this.transmission_type, // int_to_sbs1_value
     this.session_id,
@@ -226,14 +226,14 @@ function bool_to_sbs1_value(v) {
 exports.createClient = function(options) {
   var client = new sbs1.Client(options);
   return client;
-}
+};
 
 
 exports.Client = function(options) {
   events.EventEmitter.call(this);
   options = options || {};
-  var host = options.host || 'localhost'
-  var port = options.port || 30003
+  var host = options.host || 'localhost';
+  var port = options.port || 30003;
   this.socket = net.connect(
     {
       host: host,
@@ -248,7 +248,7 @@ exports.Client = function(options) {
     input: this.socket,
     output: '/dev/null'});
   this.socket_rl.on('line', this.parseMessage_.bind(this));
-}
+};
 util.inherits(exports.Client, events.EventEmitter);
 
 exports.Client.prototype.parseMessage_ = function(line) {
