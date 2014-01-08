@@ -111,8 +111,8 @@ There are 6 types of SBS-1 messages represented by the `MessageType` enum:
 |`TRANSMISSION`    |`"MSG"` |
 
 `SELECTION_CHANGE`, `NEW_ID`, `NEW_AIRCRAFT`, `STATUS_CHANGE`, and
-`CLK` are indicate changes in the state of the SBS-1 software and
-aren't typically used by other systems.
+`CLK` indicate changes in the state of the SBS-1 software and aren't
+typically used by other systems.
 
 `TRANSMISSION` messages contain information sent by aircraft.
 
