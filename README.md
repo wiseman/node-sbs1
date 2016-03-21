@@ -28,7 +28,7 @@ MSG,8,496,194,405F4E,27884,2010/02/19,17:58:13.244,2010/02/19,17:58:13.368,,,,,,
 ```
 
 There's some documentation of the message format at
-http://www.homepages.mcb.net/bones/SBS/Article/Barebones42_Socket_Data.htm
+http://woodair.net/SBS/Article/Barebones42_Socket_Data.htm
 
 Here are some examples of using the module:
 
