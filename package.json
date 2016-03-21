@@ -32,7 +32,7 @@
     "sbs-1",
     "virtual radar"
   ],
-  "license": "MIT/X11",
+  "license": "X11",
   "engine": {
     "node": ">=0.4"
   }
