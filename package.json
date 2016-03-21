@@ -5,13 +5,13 @@
   "version": "0.2.4",
   "main": "./index.js",
   "dependencies": {
-    "yargs": "~4.3.0"
+    "yargs": "~4.3.2"
   },
   "devDependencies": {
-    "tap": "~0.4.0"
+    "tap": "~5.7.0"
   },
   "scripts": {
-    "test": "tap --stderr ./test/*.js"
+    "test": "tap ./test/*.js"
   },
   "bin": {
     "sbs1": "bin/sbs1.js"
