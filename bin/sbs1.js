@@ -1,17 +1,19 @@
 #!/usr/bin/env node
 // Sample program that prints aircraft coordinates.
 
-var usage = require('optimist')
-  .usage('Print aircraft positions\n\n' +
-         'Read SBS1 messages from a file:\n' +
-         '  $0 < <file>\n\n' +
-         'Connect to server that streams SBS1 messages:\n' +
-         '  $0 [--port <port>] <host>');
+var argv = require('yargs')
+      .usage('Print aircraft positions')
+      .example('$0 < <file>', 'Read SBS1 messages from a file')
+      .example('$0 [--port <port>] <host>', 'Connect to server that streams SBS1 messages')
+      .option('port', {
+        'default': 30003,
+        'describe': 'The port to connect to',
+        'type': 'number'})
+      .help('h')
+      .alias('h', 'help')
+      .argv;
 var sbs1 = require('../index.js');
 var readline = require('readline');
-
-var argv = usage.argv;
-
 
 function print_msg(msg) {
   if (msg.callsign) {
@@ -24,15 +26,10 @@ function print_msg(msg) {
 }
 
 
-if (argv.help || argv.h) {
-  console.log(usage.help());
-  process.exit();
-}
-
 if (argv._.length > 0) {
   // Connect to server
-  var host = argv._;
-  var port = argv.port || 30003;
+  var host = argv._[0];
+  var port = argv.port;
   var client = sbs1.createClient({
     host: host,
     port: port
