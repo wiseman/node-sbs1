@@ -244,6 +244,7 @@ exports.Client = function(options) {
                   host + ':' + port);
     });
   this.socket.on('error', this.emitError.bind(this));
+  this.socket.on('close', this.emitClose.bind(this));
   this.socket_rl = readline.createInterface({
     input: this.socket,
     output: '/dev/null'});
@@ -258,4 +259,8 @@ exports.Client.prototype.parseMessage_ = function(line) {
 
 exports.Client.prototype.emitError = function(err) {
   this.emit('error', err);
+};
+
+exports.Client.prototype.emitClose = function(has_error) {
+  this.emit('close', has_error);
 };
