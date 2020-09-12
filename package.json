@@ -4,11 +4,12 @@
   "author": "John Wiseman <jjwiseman@gmail.com> (http://lemondronor.com)",
   "version": "0.2.5",
   "main": "./index.js",
+  "types": "./index.d.ts",
   "dependencies": {
-    "yargs": "~4.3.2"
+    "yargs": "^16.0.0"
   },
   "devDependencies": {
-    "tap": "~5.7.0"
+    "tap": "^14.0.0"
   },
   "scripts": {
     "test": "tap ./test/*.js"
@@ -34,6 +35,6 @@
   ],
   "license": "X11",
   "engine": {
-    "node": ">=0.4"
+    "node": ">=10"
   }
 }
